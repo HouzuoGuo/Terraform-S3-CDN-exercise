@@ -1,11 +1,12 @@
 // dns.tf describes Route 53 zone record setup for blue/green production deployment.
 
+// business_dns is the DNS zone of the startup.
 data "aws_route53_zone" "business_dns" {
   name = "hz.gl."
 }
 
 /*
-The record points to blue deployment.
+www record points to blue deployment - for now.
 For the CI/CD this resource would be managed by a workflow instead of a single declaration
 of desired state.
 The two CDN distributions will also require an operator to supply valid TLS certificate for

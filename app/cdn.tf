@@ -1,13 +1,15 @@
 // cdns.tf describes CloudFront production distributions for blue/green deployment.
 
-resource "aws_cloudfront_origin_access_identity" "cdn_oai" {
-}
-
 locals {
   blue_cdn_origin_id  = "blue_bucket_origin"
   green_cdn_origin_id = "green_bucket_origin"
 }
 
+// cdn_oai is CloudFront's IAM identity to which exclusive access to source code buckets is granted.
+resource "aws_cloudfront_origin_access_identity" "cdn_oai" {
+}
+
+// blue_cdn serves the blue copy of source code to global visitors.
 resource "aws_cloudfront_distribution" "blue_cdn" {
   enabled    = true
   web_acl_id = aws_waf_web_acl.prod_waf.id
@@ -42,6 +44,7 @@ resource "aws_cloudfront_distribution" "blue_cdn" {
   }
 }
 
+// green_cdn serves the green copy of source code to global visitors.
 resource "aws_cloudfront_distribution" "green_cdn" {
   enabled    = true
   web_acl_id = aws_waf_web_acl.prod_waf.id
