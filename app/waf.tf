@@ -10,7 +10,7 @@ variable "prod_waf_stream_arn" {
 }
 
 // prod_rate_limit imposes a 20 requests/minue rate limit for each visitor.
-// (Thanks to https://github.com/heldersepu for a tip!)
+// (Thanks to https://github.com/heldersepu for this tip!)
 resource "aws_waf_rate_based_rule" "prod_rate_limit" {
   name        = "prod_rate_limit"
   metric_name = "ProdRateLimit"
