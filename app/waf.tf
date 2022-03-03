@@ -9,7 +9,8 @@ variable "prod_waf_stream_arn" {
   description = "The ARN of Firehose delivery stream for production request logging."
 }
 
-// prod_rate_limit imposes a 100 requests/minute rate limit for each visitor.
+// prod_rate_limit imposes a 20 requests/minue rate limit for each visitor.
+// (Thanks to https://github.com/heldersepu for a tip!)
 resource "aws_waf_rate_based_rule" "prod_rate_limit" {
   name        = "prod_rate_limit"
   metric_name = "ProdRateLimit"
